@@ -1,7 +1,6 @@
 <template>
   <div class="black_bg" v-if="modal == true">
     <div class="white_bg">
-      <Discount />
       <h4>{{ data[clicked].title }}</h4>
       <img :src="data[clicked].image" alt="" />
       <p>{{ data[clicked].content }}</p>
@@ -14,8 +13,6 @@
 </template>
 
 <script>
-import Discount from "./Discount.vue";
-
 export default {
   name: "ModalVue",
   data() {
@@ -45,7 +42,11 @@ export default {
     },
     inputValue() {},
   },
-  components: { Discount },
+  updated() {
+    if (this.month == 2) {
+      alert("3개월부터 선택 가능합니다.");
+    }
+  },
 };
 </script>
 
@@ -55,10 +56,12 @@ export default {
   height: 100%;
   background: #0000007c;
   position: fixed;
+  top: 0;
+  left: 0;
   padding: 20px;
 }
 .white_bg {
-  width: 90%;
+  width: 86.5%;
   background: #fff;
   border-radius: 8px;
   padding: 20px;

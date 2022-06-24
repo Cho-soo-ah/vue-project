@@ -4,7 +4,9 @@
       <a v-for="(link, index) in links" :key="index">{{ link }}</a>
     </div>
   </div>
-  <Discount />
+  <transition name="fade">
+    <Discount v-if="showDiscount" :percent="percent" />
+  </transition>
   <button @click="priceSort">가격순정렬</button>
   <button @click="reverseSort">가격역순정렬</button>
   <button @click="nameSort">이름순정렬</button>
@@ -43,6 +45,8 @@ export default {
       modal: false,
       clicked: 0,
       links: ["Home", "Products", "About"],
+      showDiscount: true,
+      percent: 20,
     };
   },
   methods: {
@@ -71,6 +75,14 @@ export default {
     backSort() {
       this.data = [...this.originData];
     },
+  },
+  mounted() {
+    const timer = setInterval(() => {
+      this.percent--;
+      if (this.percent == 0) {
+        clearInterval(timer);
+      }
+    }, 1000);
   },
   components: { Card, Modal, Discount },
 };
