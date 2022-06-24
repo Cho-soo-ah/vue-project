@@ -1,12 +1,12 @@
 <template>
-  <div class="black_bg" v-if="modal">
+  <div class="black_bg" v-if="modal == true">
     <div class="white_bg">
       <Discount />
       <h4>{{ data[clicked].title }}</h4>
       <img :src="data[clicked].image" alt="" />
       <p>{{ data[clicked].content }}</p>
       <p>{{ data[clicked].price }} 원</p>
-      <!-- <button @click="modalClose">닫기</button> -->
+      <button @click="modalClose">닫기</button>
     </div>
   </div>
 </template>
@@ -20,6 +20,11 @@ export default {
     modal: Boolean,
     data: Object,
     clicked: Number,
+  },
+  methods: {
+    modalClose() {
+      this.$emit("modalClose", this.data[this.clicked].id);
+    },
   },
   components: { Discount },
 };

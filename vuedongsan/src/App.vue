@@ -4,21 +4,44 @@
       <a v-for="(link, index) in links" :key="index">{{ link }}</a>
     </div>
   </div>
-
-  <Card />
+  <Modal
+    :modal="modal"
+    :data="data"
+    :clicked="clicked"
+    @modalClose="modal = false"
+  />
+  <Card
+    v-for="(item, i) in data"
+    :key="i"
+    :item="item"
+    @modalOpen="
+      modal = true;
+      clicked = $event;
+    "
+  />
 </template>
 
 <script>
+import data from "./assets/data";
 import Card from "./components/Card.vue";
+import Modal from "./components/Modal.vue";
 
 export default {
   name: "App",
   data() {
     return {
+      data: data,
+      modal: false,
+      clicked: 0,
       links: ["Home", "Products", "About"],
     };
   },
-  components: { Card },
+  // methods: {
+  //   modalOpen() {
+  //     this.modal == true;
+  //   },
+  // },
+  components: { Card, Modal },
 };
 </script>
 

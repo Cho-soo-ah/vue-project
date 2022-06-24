@@ -1,44 +1,35 @@
 <template>
-  <Modal :modal="modal" :data="data" :clicked="clicked" />
-  <div v-for="(item, i) in data" :key="i">
-    <img class="room" :src="data[i].image" alt="" />
-    <h4 @click="modalOpen(i)">모달띄우기</h4>
-    <h3>{{ data[i].title }}</h3>
-    <p>{{ data[i].content }}</p>
-    <p>{{ data[i].price }} 원</p>
-    <button @click="increase(i)">추천하기</button>
+  <div>
+    <img class="room" :src="item.image" alt="" />
+    <h4 @click="modalOpen">모달띄우기</h4>
+    <h3>{{ item.title }}</h3>
+    <p>{{ item.content }}</p>
+    <p>{{ item.price }} 원</p>
+    <button @click="increase">추천하기</button>
     <br /><br />
-    <span>추천 수 : {{ value[i] }}</span>
+    <span>추천 수 : {{ value }}</span>
   </div>
 </template>
 
 <script>
-import data from "../assets/data";
-import Modal from "./Modal.vue";
-
 export default {
   name: "CardBox",
   props: {
-    data: Object,
+    item: Object,
   },
   data() {
     return {
-      data: data,
-      value: [0, 0, 0, 0, 0],
-      modal: false,
-      clicked: 0,
+      value: 0,
     };
   },
   methods: {
-    increase(i) {
-      this.value[i]++;
+    modalOpen() {
+      this.$emit("modalOpen", this.item.id);
     },
-    modalOpen(i) {
-      this.modal = true;
-      this.clicked = i;
+    increase() {
+      this.value++;
     },
   },
-  components: { Modal },
 };
 </script>
 
