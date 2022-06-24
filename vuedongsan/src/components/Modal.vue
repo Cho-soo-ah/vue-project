@@ -5,7 +5,9 @@
       <h4>{{ data[clicked].title }}</h4>
       <img :src="data[clicked].image" alt="" />
       <p>{{ data[clicked].content }}</p>
-      <p>{{ data[clicked].price }} 원</p>
+      <!-- <input @input="month = $event.target.value" /> 축약버전 -->
+      <input v-model="month" />
+      <p>{{ month }}개월 선택 시 {{ data[clicked].price * month }} 원</p>
       <button @click="modalClose">닫기</button>
     </div>
   </div>
@@ -16,6 +18,22 @@ import Discount from "./Discount.vue";
 
 export default {
   name: "ModalVue",
+  data() {
+    return {
+      month: 1,
+    };
+  },
+  watch: {
+    month(v) {
+      if (isNaN(v)) {
+        alert("숫자만 입력해주세요");
+        this.month = 1;
+      }
+      if (v > 12) {
+        alert("12개월까지 입력할 수 있습니다.");
+      }
+    },
+  },
   props: {
     modal: Boolean,
     data: Object,
@@ -25,6 +43,7 @@ export default {
     modalClose() {
       this.$emit("modalClose", this.data[this.clicked].id);
     },
+    inputValue() {},
   },
   components: { Discount },
 };
