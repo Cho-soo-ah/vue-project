@@ -1,7 +1,9 @@
-# vuedongsan
+# vuueblog
 
-### vue sale site
+## Project setup
 
 ```
-tool : vue,
+vue blog
+use bootstrap
+checkcheckcheckcheck
 ```
